@@ -1,0 +1,442 @@
+#It is possible that a program is needed
+#IDLE Python Shell
+#But I, if necessary,
+#I will transfer the game to .exe
+#Especially for you :)
+####IN ORDER FOR SAVES TO WORK, YOU MUST EXIT WITH THE "QUIT" COMMAND DURING THE BATTLE####
+
+
+
+
+import random
+import time
+import winsound
+import sys
+
+mana= 100
+wins= 0
+deaths= 0
+hero_hp = 10
+hero_power=1
+hp_drawn=0
+varn_type= [None,"Slug", "Skeleton", "Zombie", "Stalker", "Dark Slug", "Bob"]
+rep= 1
+money= 10
+namelessfuncl= 0
+shop_pass=0
+time_now= time.time()
+timeingame=0
+proof=0
+rand_gen=0
+level=1
+skip=0
+kh=0
+class File:
+    def savecreate(self):
+        global savelevel2,savelevel,savemana,savewins,savetime,saverep,savemoney,savehp,savepower,saverand_gen
+        savemana= open("SSG1.txt","w+");
+        savewins= open("SSG2.txt","w+");
+        savetime= open("SSG3.txt","w+");
+        saverep= open("SSG4.txt","w+");
+        savemoney= open("SSG5.txt","w+");
+        savehp= open("SSG6.txt","w+");
+        savepower= open("SSG7.txt","w+");
+        saverand_gen= open("SSG8.txt","w+");
+        savelevel= open("SSG9.txt","w+");
+        savelevel2=open("SSG10.txt","w+");
+
+    def shifter(self):
+        global timeingame
+        timeingame=int(timeingame+time.time()-time_now)
+        global rand_gen
+        rand_gen= (timeingame*wins+rep+money-hero_hp-mana-hero_power*kh*level)*17
+    def save(self):
+        global kh,savelevel2,level,savelevel,rand_gen,savemana,savewins,savetime,saverep,savemoney,savehp,savepower,saverand_gen
+        savemana.write(str(mana))
+        savewins.write(str(wins))
+        savetime.write(str(timeingame))
+        saverep.write(str(rep))
+        savemoney.write(str(money))
+        savehp.write(str(hero_hp))
+        savepower.write(str(hero_power))
+        saverand_gen.write(str(rand_gen))
+        savelevel.write(str(level))
+        kkh=kh+10
+        savelevel2.write(str(kkh))
+        savelevel.close()
+        savelevel2.close()
+        savemana.close()
+        saverand_gen.close()
+        savewins.close()
+        savetime.close()
+        saverep.close()
+        savemoney.close()
+        savehp.close()
+        savepower.close()
+    def load(self):
+        global rand_gen,mana,wins,timeingame,rep,money,hero_hp,hero_power,level,kh
+        with open("SSG9.txt","r") as q:
+            level= int(q.read())
+        with open("SSG10.txt","r") as z:
+            kh= int(z.read())-10
+        with open("SSG1.txt","r") as a:
+            mana= int(a.read())
+        with open("SSG2.txt","r")as b:
+            wins= int(b.read())
+        with open("SSG3.txt","r") as c:
+            timeingame= int(c.read())
+        with open("SSG4.txt","r") as d:
+            rep= int(d.read())
+        with open("SSG5.txt","r") as e:
+            money= int(e.read())
+        with open("SSG6.txt","r") as f:
+            hero_hp=int(f.read())
+        with open("SSG7.txt","r") as g:
+            hero_power=int(g.read())
+        with open("SSG8.txt","r") as h:
+            proof=float(h.read())
+        if proof== (timeingame*wins+rep+money-hero_hp-mana-hero_power*kh*level)*17:
+            print()
+        else:
+            with open("SSG9.txt","w") as q:
+                q.write("0")
+            with open("SSG10.txt","w") as z:
+                z.write("0")            
+            with open("SSG1.txt","w") as a:
+                a.write("0")
+            with open("SSG2.txt","w")as b:
+                b.write("0")
+            with open("SSG3.txt","w") as c:    
+                c.write("0")
+            with open("SSG4.txt","w") as d:
+                d.write("0")
+            with open("SSG5.txt","w") as e:
+                e.write("0")
+            with open("SSG6.txt","w") as f:
+                f.write("0")
+            with open("SSG7.txt","w") as g:
+                g.write("0")
+            print("Dirty cheater!")
+            input()
+            sys.exit(1)
+saven= File()
+try:
+    saven.load()
+    skip=1
+except:  
+    saven.savecreate()
+while True:
+    print("|▓▓                  |")
+    time.sleep(0.2)
+    print("|▓▓▓▓                |")
+    time.sleep(0.1)
+    print("|▓▓▓▓▓▓              |")
+    time.sleep(0.1)
+    print("|▓▓▓▓▓▓▓▓            |")
+    time.sleep(2)
+    print("|▓▓▓▓▓▓▓▓▓▓          |")
+    time.sleep(1.6)
+    print("|▓▓▓▓▓▓▓▓▓▓▓▓        |")
+
+    print("|▓▓▓▓▓▓▓▓▓▓▓▓▓▓      |")
+
+    print("|▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓    |")
+
+    print("|▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  |")
+    time.sleep(1)
+    print("|▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓|")
+    print("Done!")
+    time.sleep(0.5)
+    break
+    
+        
+class Shop:
+    def __init__(self):
+        global rep
+        global kh,level
+        self.mana_mon= random.randint(1,30)-rep+kh*20+level*2
+        self.dam_mon= random.randint(5, 20)-rep+kh*20+level*2
+        self.spesh_mon= random.randint(40,80)-rep+kh*20+level*2
+        self.all_mon=random.randint(6, 50)-rep+kh*20+level*2
+    def buy_item(self):
+        global money
+        global mana
+        global hero_power,level
+        print("Welcome to my store, traveler! I, as the most decent Bob-Bob, am ready to offer some goods!")
+        while True:
+            com1=input("What would you like?\nCommands: bye, prices, goods, reputation, money, level\n> ")
+            if com1== "prices":
+                print(f"Today the prices are as follows: mana - {self.mana_mon} Kromer, sword upgrade - {self.dam_mon} Kromer, but if all at once, then {self.all_mon} Kromer!")
+            elif com1 == "goods" :
+                items=input("What would you like to buy from me?\n>")
+                if items== "mana":
+                    if money>=self.mana_mon:
+                        print("It's a pleasure doing business with you!")
+                        mana= mana+ 25
+                        money= money- self.mana_mon
+                        continue
+                    else:
+                        print("It’s a pity, but we still need money!")
+                        continue
+
+                    
+                if items== "sword" or items=="sword upgrade":
+                    if money>= self.dam_mon:
+                        print("Nice new thing you have! Anything else?")
+                        hero_power= hero_power+ 1
+                        money= money- self.dam_mon
+                        continue
+                    else:
+                        print("I hope this isn't robbery? Kidding! These are my regular prices!")
+                        continue
+
+                if items== "all":
+                    if money>=self.all_mon:
+                        print("Not surprising! Popular product, you know.")
+                        hero_power= hero_power+ 1
+                        mana= mana+ 25
+                        money= money-self.all_mon
+                    else:
+                        print("Wealth and power require sacrifice!")
+                        continue
+            elif com1== "reputation":
+                print(f"Your discount is {rep} Cromers. Draw your own conclusions!")
+                continue
+            elif com1== "money":
+                print(f"You only have {money} Cromers! Yes, my boot has more reserves!")
+                continue
+            elif com1== "bye":
+                print("Come on, good luck! Bring more money to my treasury, nameless one! To meet me again, write \"shop\" during the battle!")
+                time.sleep(0.3)
+                break
+            elif com1=="level":
+                global kh,level
+                while level>=10:
+                    level-=10
+                    kh+=1
+                if level==1:
+                    print(f"┌|██|  |  |  |  |  |  |  |  |┘\n                 {kh} LvL!")
+                elif level==2:
+                    print(f"┌|██|██|  |  |  |  |  |  |  |┘\n                 {kh} LvL!")
+                elif level==3:
+                    print(f"┌|██|██|██|  |  |  |  |  |  |┘\n                 {kh} LvL!")
+                elif level==4:
+                    print(f"┌|██|██|██|██|  |  |  |  |  |┘\n                 {kh} LvL!")
+                elif level==5:
+                    print(f"┌|██|██|██|██|██|  |  |  |  |┘\n                 {kh} LvL!")
+                elif level==6:
+                    print(f"┌|██|██|██|██|██|██|  |  |  |┘\n                 {kh} LvL!")
+                elif level==7:
+                    print(f"┌|██|██|██|██|██|██|██|  |  |┘\n                 {kh} LvL!")
+                elif level==8:
+                    print(f"┌|██|██|██|██|██|██|██|██|  |┘\n                 {kh} LvL!")
+                elif level==9:
+                    print(f"┌|██|██|██|██|██|██|██|██|██|┘\n                 {kh} LvL!")
+                elif level==0:
+                    print(f"┌|  |  |  |  |  |  |  |  |  |┘\n                 {kh} LvL!")
+class Varn:
+    def __init__(self,hp,power):
+        global varn_type,level,kh
+        self.heal_points= hp+kh
+        self.varn_type = varn_type[random.randint(1,6)]
+        self.power_of_attack= power+ kh
+        print(f"A {self.varn_type} enemy has materialized in front of you!")
+        print(f"He has {hp+kh} HP and {power+kh} Strength!")
+
+    def attack(self):
+        global hero_hp,kh
+        ran= random.randint(1,3)
+        if ran == 1 or ran == 2:
+            hero_hp= hero_hp- self.power_of_attack
+        else:
+            print("You have successfully evaded!")
+            return
+        
+        global deaths
+        if hero_hp <= 0:
+            print("wasted")
+            deaths= 1
+            input()
+            sys.exit(1)
+            return deaths
+        else:
+            print(f"Phew! The enemy dealt {self.power_of_attack} Damage! You have {hero_hp} HP left!")
+            
+
+    def take_damage(self):
+        global hero_power
+        global wins
+        global rep
+        global money,kh, level
+        ran1= random.randint(1,5)
+        if ran1==1 or ran1== 2 or ran1==3 or ran1==4:
+            self.heal_points-= hero_power
+        else:
+            print("What a misfortune! The enemy has evaded!")
+            return
+        if self.heal_points <=0:
+            level+=1
+            wins= wins+1
+            rep=rep+1
+            money+=random.randint(1,10) +self.power_of_attack*2+kh   
+            print(f"You killed an enemy! You have {wins} victories! Current level:{kh}/{level}")
+            
+            
+            return wins
+        else:
+            print(f"The blow has been struck, the enemy has {self.heal_points} HP!")
+
+def heal_self():
+     global hero_hp
+     global mana
+     if mana>= 25:
+          hero_hp += 5
+          mana-= 25
+          print(f"You were healed by a magical aura! You now have {hero_hp} HP!")
+     else:
+         print("Not enough mana!")
+
+def give_mon():
+    global money
+    global rep
+    money-=10
+    if money<0:
+        money=0
+    rep-=1
+    print(f"You paid off. Your reputation ({rep}) and Cromers ({money}) suffered!")
+
+def shop():
+    shop= Shop()
+    shop.buy_item()
+        
+if skip!=1:
+    var1= Varn(3,1)
+    time.sleep(1)
+    print("You have several options: Strike, Heal, Retaliate.\n Let's look at the basics of combat.\n Here is an enemy of the " ,var1.varn_type, " type. Don't be afraid, he's weak. \nTry hitting him by typing 'Attack' or 'At'")
+    while True:
+        func1= input("> ")
+        if func1== "attack" or func1== "at":
+            time.sleep(0.3)
+            var1.take_damage()
+            time.sleep(0.3)
+            break
+        else:
+            continue
+
+    print("Wonderful! You have two options for the outcome of your attack: the enemy's dodge and your hit. In the second case, you will inflict damage on the enemy, which is prescribed for you according to the plot, but don’t worry, it can be increased in stores.\n Be careful!, it seems the enemy wants to inflict damage on you! Want to see what happens next?")
+    while True:
+        func1= input("> ")
+        if func1== "yes" or func1=="yup":
+            time.sleep(0.3)
+            var1.attack()
+            time.sleep(0.3)
+            break
+        else:
+            continue
+    print("Phew, it's gone! You can dodge too, so hopefully you dodged. But if you received damage in battle, you can restore some HP by using mana. Just write 'Mana' and get some health")
+    while True:
+        func1= input("> ")
+        if func1== "mana":
+            time.sleep(0.3)
+            heal_self()
+            time.sleep(0.3)
+            break
+        else:
+            continue
+    print("Healing is, of course, good, but your mana reserves are not endless. So use the power given to you wisely! You can also buy Mana Restoration from the seller in the store.")
+    time.sleep(1)
+    print("There is another option to repay the enemy for in-game currency. This doesn't stack up well at your reputation level, so be careful! Enter 'Pay off' or 'P'off' to test the function.")
+    while True:
+        func1= input("> ")
+        if func1== "pay off" or func1== "p'off":
+            time.sleep(0.3)
+            give_mon()
+            time.sleep(0.3)
+            break
+        else:
+            continue
+    print("OK it's all over Now! This completes the basic training! The rest will be told to you by the rest of the NPCs, of which there are quite a few in our wonderful game! Good luck, traveler!")
+    input("> ")
+    shop()
+while True:
+    winsl=wins+ 1
+    k= random.randint(1,10)
+    l= random.randint(1,3)
+    var1= Varn(k,l)
+    if shop_pass==1:
+        shop_pass=0
+        shop()
+        time.sleep(0.3)
+    
+    while True:
+
+        while True:
+            func1= input("> ")
+            if func1== "attack" or func1== "at":
+                time.sleep(0.3)
+                var1.take_damage()
+                time.sleep(0.3)
+                break
+            elif func1== "mana":
+                time.sleep(0.3)
+                heal_self()
+                time.sleep(0.3)
+                break
+            elif func1== "pay off" or func1== "p'off":
+                time.sleep(0.3)
+                give_mon()
+                time.sleep(0.3)
+                namelessfuncl= 1
+                break
+            elif func1== "shop":
+                shop_pass=1
+                print("You received the phone and selected the number (89297844206)")
+                time.sleep(0.3)
+                print(".")
+                time.sleep(0.3)
+                print("..")
+                time.sleep(0.3)
+                print("...")
+                time.sleep(0.3)
+                print("It seems you got through.")
+                print("> ")
+                time.sleep(0.9)
+                print("Oh, no, you're wrong.")
+                time.sleep(0.3)
+                print(".")
+                time.sleep(0.3)
+                print("..")
+                time.sleep(0.3)
+                print("...")
+                time.sleep(0.3)
+                print("You have been heard. After this fight you will be greeted by the seller Bob-Bob!")
+                break
+            elif func1== "quit":
+                exit= input("Are you sure?\n> ")
+                if exit== "yes":
+                    saven.savecreate()
+                    saven.shifter()
+                    saven.save()
+                    sys.exit(1)
+                else:
+                    continue
+            else:
+                continue
+        if namelessfuncl==1:
+            namelessfuncl=0
+            break
+        elif wins== winsl:
+            while level>=10:
+                level-=10
+                kh+=1 
+            break
+        else:            
+            time.sleep(0.3)
+            var1.attack()
+            time.sleep(0.3)
+        
+        
+        
+
+
+    
